@@ -144,10 +144,7 @@ pub fn v4_signature_hash<
     let hash_type = signable_input.hash_type();
     println!("{:?}", hash_type);
 
-    
-    
     if tx.version.has_overwinter() {
-
         let mut h = Blake2bParams::new()
             .hash_length(32)
             .personal(&*ZCASH_SIGHASH_PERSONALIZATION_PREFIX)
@@ -155,9 +152,8 @@ pub fn v4_signature_hash<
         let mut tmp = [0; 8];
 
         update_u32!(h, tx.version.header(), tmp);
-	println!("{}", tx.version.header());
-	//update_u32!(h, tx.version.version_group_id(), tmp);
-	//update_u32!(h, 0, tmp);
+        //update_u32!(h, tx.version.version_group_id(), tmp);
+        //update_u32!(h, 0, tmp);
         update_hash!(
             h,
             hash_type & SIGHASH_ANYONECANPAY == 0,
@@ -231,13 +227,8 @@ pub fn v4_signature_hash<
                     .map_or(true, |b| b.shielded_outputs().is_empty()),
                 shielded_outputs_hash(tx.sapling_bundle.as_ref().unwrap().shielded_outputs())
             );
-	    h.update(&tx.sapling_value_balance().to_i64_le_bytes());
+            h.update(&tx.sapling_value_balance().to_i64_le_bytes());
         }
-        update_u32!(h, tx.lock_time, tmp);
-        //update_u32!(h, tx.expiry_height.into(), tmp);
-
-        update_u32!(h, hash_type.into(), tmp);
-
         match signable_input {
             SignableInput::Shielded => (),
             SignableInput::Transparent {
@@ -266,6 +257,11 @@ pub fn v4_signature_hash<
                 panic!("A request has been made to sign a TZE input, but the transaction version is not ZFuture");
             }
         }
+
+        update_u32!(h, tx.lock_time, tmp);
+        //update_u32!(h, tx.expiry_height.into(), tmp);
+
+        update_u32!(h, hash_type.into(), tmp);
 
         h.finalize()
     } else {
