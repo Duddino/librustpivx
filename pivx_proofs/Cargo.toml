@@ -21,7 +21,7 @@ pivx_primitives = { version = "0.10", path = "../pivx_primitives" }
 
 # Dependencies exposed in a public API:
 # (Breaking upgrades to these require a breaking upgrade to this crate.)
-bellman = { version = "0.13.1", default-features = false, features = ["groth16"] }
+bellman = { path = "../bellman", default-features = false, features = ["groth16"] }
 bls12_381 = "0.7"
 group = "0.12"
 jubjub = "0.9"

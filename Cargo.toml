@@ -11,6 +11,7 @@ members = [
     "pivx_history",
     "pivx_primitives",
     "pivx_proofs",
+    "bellman",
 ]
 
 [profile.release]
