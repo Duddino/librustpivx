@@ -3,7 +3,9 @@
 use std::cmp::Ordering;
 use std::error;
 use std::fmt;
-use std::sync::mpsc::Sender;
+
+use tokio::sync::mpsc::Sender;
+
 
 #[cfg(not(feature = "zfuture"))]
 use std::marker::PhantomData;

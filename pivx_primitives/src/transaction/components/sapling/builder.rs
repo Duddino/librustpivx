@@ -1,7 +1,7 @@
 //! Types and functions for building Sapling transaction components.
 
 use core::fmt;
-use std::sync::mpsc::Sender;
+use tokio::sync::mpsc::Sender;
 
 use ff::Field;
 use rand::{seq::SliceRandom, RngCore};
@@ -423,7 +423,7 @@ impl<P: consensus::Parameters> SaplingBuilder<P> {
                     if let Some(sender) = progress_notifier {
                         // If the send fails, we should ignore the error, not crash.
                         sender
-                            .send(Progress::new(progress, Some(total_progress)))
+                            .blocking_send(Progress::new(progress, Some(total_progress)))
                             .unwrap_or(());
                     }
 
@@ -511,7 +511,7 @@ impl<P: consensus::Parameters> SaplingBuilder<P> {
                 if let Some(sender) = progress_notifier {
                     // If the send fails, we should ignore the error, not crash.
                     sender
-                        .send(Progress::new(progress, Some(total_progress)))
+                        .blocking_send(Progress::new(progress, Some(total_progress)))
                         .unwrap_or(());
                 }
 
