@@ -199,7 +199,7 @@ pub const MAIN_NETWORK: MainNetwork = MainNetwork;
 
 impl Parameters for MainNetwork {
     fn activation_height(&self, nu: NetworkUpgrade) -> Option<BlockHeight> {
-	NetworkUpgrade::Sapling
+	Some(NetworkUpgrade::Sapling)
     }
 
     fn coin_type(&self) -> u32 {
