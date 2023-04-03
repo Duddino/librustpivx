@@ -199,7 +199,16 @@ pub const MAIN_NETWORK: MainNetwork = MainNetwork;
 
 impl Parameters for MainNetwork {
     fn activation_height(&self, nu: NetworkUpgrade) -> Option<BlockHeight> {
-	Some(NetworkUpgrade::Sapling)
+	match nu {
+            NetworkUpgrade::Overwinter => None,
+            NetworkUpgrade::Sapling => Some(BlockHeight(0)),
+            NetworkUpgrade::Blossom => None,
+            NetworkUpgrade::Heartwood => None,
+            NetworkUpgrade::Canopy => None,
+            NetworkUpgrade::Nu5 => None,
+            #[cfg(feature = "zfuture")]
+            NetworkUpgrade::ZFuture => None,
+        }
     }
 
     fn coin_type(&self) -> u32 {
