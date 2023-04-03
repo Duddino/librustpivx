@@ -90,7 +90,7 @@ pub struct Output {
 
 /// Exposes a Pedersen commitment to the value as an
 /// input to the circuit
-fn expose_value_commitment<CS>(
+pub fn expose_value_commitment<CS>(
     mut cs: CS,
     value_commitment_opening: Option<ValueCommitmentOpening>,
 ) -> Result<Vec<boolean::Boolean>, SynthesisError>
