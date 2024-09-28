@@ -11,7 +11,6 @@ repository = "https://github.com/pivx/librustpivx"
 readme = "README.md"
 license = "MIT OR Apache-2.0"
 edition = "2021"
-rust-version = "1.60"
 
 # Exclude proto files so crates.io consumers don't need protoc.
 exclude = ["*.proto"]
@@ -28,7 +27,7 @@ pivx_primitives = { version = "0.10", path = "../pivx_primitives" }
 # Dependencies exposed in a public API:
 # (Breaking upgrades to these require a breaking upgrade to this crate.)
 # - Data Access API
-time = "0.2"
+time = "0.3.36"
 
 # - Encodings
 base64 = "0.13"
